@@ -8,7 +8,9 @@ import subprocess
 import os, re, shlex, sys, time, yaml
 from datetime import datetime as dt
 import chattymoe.settings as sts
+import chattymoe.helpers.general as hlp
 
+from tabulate import tabulate as tb
 import colorama as color
 
 color.init()
@@ -16,6 +18,7 @@ _RED = color.Fore.RED
 _CYAN = color.Fore.CYAN
 _YELLOW = color.Fore.YELLOW
 _GREEN = color.Fore.GREEN
+_WHITE = color.Fore.WHITE
 _NONE = color.Style.RESET_ALL
 
 appName = os.path.splitext(os.path.basename(__file__))[0]
@@ -34,13 +37,12 @@ def run_shell(logFiles, *args, **kwargs):
     while True:
         urs = get_ur(ps, logFiles, *args, **kwargs)
         for ur in urs.split('&&'):
-            print(f"{ur = }")
+            # print(f"{ur = }")
             ps = nPs
+            # from tabulate import tabulate as tb
             ur, nPs = analyse_ur(  logFiles, ur, ps )
             if not check_action(ur, nPs, logFiles, *args, **kwargs): continue
-            print(f"{_CYAN}\nshelly.run_shell.subprocess:{_NONE}")
             cmds = sts.apps[appName]['source'] + shlex.split(ur)
-            print(f"\t {ps[:-2]}> {ur}   ->   {cmds = }")
             # takes cmds and runs them as a powershell command
             out = subprocess.Popen( cmds,
                                     shell=True,
@@ -49,11 +51,23 @@ def run_shell(logFiles, *args, **kwargs):
                                     cwd=ps[:-2]
                                     )
             resp = decode_response(out, nPs, *args, **kwargs)
-            print(f"\t {ps[:-2]}> {resp = }")
+            # print(f"\t {ps[:-2]}> {resp = }")
             actionStr = f"{ps} {ur}\n{resp}\n{nPs}|\n"
-            with open(logFiles['outLogPath'], "w") as f: f.write(f"\n{resp}\n{nPs}|\n") 
-            with open(logFiles['psLogPath'], "a") as f: f.write(actionStr)
-            time.sleep(5)
+            print_cmds(ps, ur, cmds, actionStr, *args, **kwargs)
+        with open(logFiles['outLogPath'], "w") as f: f.write(f"\n{resp}\n{nPs}|\n") 
+        with open(logFiles['psLogPath'], "a") as f: f.write(actionStr)
+        time.sleep(5)
+
+def print_cmds(ps, ur, cmds, actionStr, *args, **kwargs):
+    print(f"{_WHITE}\n\tshelly.run_shell processing ...:")
+    shellIn = {
+                'set_shell_in': [f'{ps[:-2]}> {ur}'], 
+                'subprocess_cmd': cmds,
+                'subprocess_out': hlp.insert_newline(actionStr, *args, **kwargs),
+                }
+    # print(shellIn)
+    shellIn = tb(shellIn, headers='keys', tablefmt='github')
+    for line in shellIn.split('\n'):  print(f"\t\t{_CYAN}", line, f"{_NONE}")
 
 def decode_response(out, nPs, *args, **kwargs):
     check = False
@@ -136,6 +150,8 @@ def analyse_ur(logFiles, ur, ps):
         new_cwd = os.path.abspath(ur.split()[1]).replace('\\', '/')
         ur = f"cd {new_cwd}"
         print('analyse_ur:', new_cwd, ur)
+    elif os.sep in ur:
+        ur = ur.replace(os.sep, '/')
     else:
         with open(logFiles['psLogPath'], 'r') as f:
             lines = f.read().split('\n')
@@ -166,7 +182,7 @@ def set_shell_in(logFiles, userInput, *args, **kwargs):
     this funciton writes whatever is in userInput to in.log
     shelly latter reads in.log and passes the content to the subprocess
     """
-    print(f"Writing to in.log: {userInput}")
+    # print(f"Writing to in.log: {userInput}")
     with open(logFiles['inLogPath'], 'w') as f:
         f.write(userInput)
 

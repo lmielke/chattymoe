@@ -8,7 +8,8 @@ can do whatever you imagine
 import yaml, os, re, subprocess, time
 from datetime import datetime as dt
 import chattymoe.settings as sts
-
+import chattymoe.helpers.general as hlp
+from tabulate import tabulate as tb
 import colorama as color
 
 color.init()
@@ -17,6 +18,7 @@ _YELLOW = color.Fore.YELLOW
 _GREEN = color.Fore.GREEN
 _CYAN = color.Fore.CYAN
 _BLUE = color.Fore.BLUE
+_WHITE = color.Fore.WHITE
 _NONE = color.Style.RESET_ALL
 
 
@@ -40,17 +42,25 @@ class Moe:
         """
         Sends message to openai and handles the response.
         """
-        print(f'{_YELLOW}\n\nMoe.post: {len(self.chat) = } ...{_NONE}')
-        print(f"\tuser: {self.chat[-1].entry['content']}")
         r = openai.ChatCompletion.create(
             model=model, 
             messages=[{f: ct for f, ct in m.entry.items() if f in sts.msgFields} for m in self.chat]
             )
         self.chat.append(Prompt(r['choices'][-1]['message'], *args, **kwargs))
-        print(f"\t{_YELLOW}assi: {_NONE}\n\t\t{self.chat[-1].entry.get('content')}")
-        print(f"\t{_YELLOW}end assi: {_NONE}")
-        time.sleep(5)
+        self.print_message(*args, **kwargs)
         return r
+
+    def print_message(self, *args, **kwargs):
+        print(f"{_WHITE}assi:")
+        assiMsg = {
+                    'assi_in': hlp.insert_newline(self.chat[-2].entry.get('content')), 
+                    'assi_out': [self.chat[-1].entry.get('content')], 
+                    'lenChat': [len(self.chat)],
+                    }
+        assiMsg = tb(assiMsg, headers='keys', tablefmt='github')
+        for line in assiMsg.split('\n'): print(f"\t{_YELLOW}{line}{_NONE}")
+        time.sleep(5)
+
 
     def load_chat(self, *args, chat, **kwargs):
         """
@@ -73,7 +83,9 @@ class Moe:
             return False
         if not yes:
             print(f"{_YELLOW}Moe.confirm: {_NONE}{self.chat[-1].entry = }")
+            test = input("Test: ")
             userInput = input(f"Send/Stop? (y/stop): ").lower()
+            exit()
             if userInput == 'y':
                 return True
             elif userInput == 'stop':
