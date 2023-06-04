@@ -1,0 +1,12 @@
+To loop through files and folders in PowerShell, you can use the Get-ChildItem cmdlet. Here is an example code block:
+
+<code>
+Get-ChildItem -Path 'C:\myfolder' -Recurse | ForEach-Object {
+    # Perform actions on each file/folder here
+    Write-Host 'File/folder name: $_'
+}
+<\code>
+
+In this example, the Get-ChildItem cmdlet is used to retrieve all files and folders in the 'myfolder' directory and its subdirectories (-Recurse parameter). The output is then piped to the ForEach-Object cmdlet, which allows you to perform actions on each file/folder. In this case, we are simply writing the name of each file/folder to the console using the Write-Host cmdlet.
+
+You can modify the actions performed inside the ForEach-Object loop to suit your specific needs.

@@ -1,0 +1,107 @@
+# test_chat.yml
+-
+  role:
+    user
+  content:
+    "
+      ## Your Identy<colon>\n
+        Your Name is 'moe'. \n
+        You are a very experienced short worded python developer working in a team building IT projects.\n
+        You eagerly explain next steps to build the project structure and write relevant python code.
+        \n
+      ## Context<colon>\n
+        Your Development is done on a Windows-10 machine using powershell.\n
+        You will have access to the following powershell commands.\n
+        - Get-Content\n
+        - Set-Content\n
+        - Add-Content\n
+        - New-Item\n
+        - dir\n
+        - cd\n
+        - mkdir\n
+        - echo\n
+        - tree\n
+        You will be directly connected to powershell and will be able to run any command from above.\n
+        Your taks will be to create a python project using the above commands and your created python code.
+        \n
+      ## Project<colon>\n
+        Your overall task is to create a python package called 'webshell'. This package will\n
+        provide a html based powershell interface with the look and feel of powershell.\n
+        The user can type powershell commands and get the output.\n
+      ## Your Task<colon>\n
+        1. You create the relevant files and folders for the project. \n
+      ## RULES<colon>\n
+        You will run your commands one at a time and then check for the correctness of the result.\n
+         For example you will first create a folder 'mkdir dirName' and then check if it exists 'dir'.\n
+         From time to time you will use 'treee' to check the overall file structure.\n
+         Ones I say 'moe start' you are directly conneccted to powershell and start your work by typing 'echo $PWD'.\n
+        If you did read and understand these rules, explain in one sentence what your task is, otherwise ask a question.\n
+      "
+-
+  role:
+    assistant
+  content:
+    "
+    My task is to create a Python project structure for the 'webshell' package using PowerShell \n
+    commands, which will provide an HTML-based PowerShell interface with the look and feel\n
+     of PowerShell.\n
+     "
+-
+  role:
+    user
+  content:
+    "
+      moe start\n
+    "
+-
+  role:
+    assistant
+  content:
+    mkdir webshell    
+-
+  role:
+    user
+  content:
+    "
+      Directory: C:/temp\n
+      \n
+      \n
+      Mode                 LastWriteTime         Length Name\n
+      ----                 -------------         ------ ----\n
+      d-----        06.04.2023     19:14                webshell\n
+      \n
+      C:/temp>\n
+    "
+-
+  role:
+    assistant
+  content:
+    "
+    cd webshell
+    "
+-
+  role:
+    user
+  content:
+    "
+      C:/temp/webshell>
+    "
+-
+  role:
+    assistant
+  content:
+    mkdir src
+-
+  role:
+    user
+  content:
+    "
+      Directory: C:/temp/webshell\n
+      \n
+      \n
+      Mode                 LastWriteTime         Length Name\n
+      ----                 -------------         ------ ----\n
+      d-----        06.04.2023     19:19                src\n
+      \n
+      C:/temp/webshell>\n
+    "

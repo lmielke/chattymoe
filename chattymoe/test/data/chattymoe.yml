@@ -1,0 +1,4 @@
+verbose: 0
+packageName: chattymoe
+targetDir: /temp
+packageAlias: moe

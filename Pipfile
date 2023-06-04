@@ -1,0 +1,27 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+colorama = "*"
+pyyaml = "*"
+requests = "*"
+tabulate = "*"
+chattymoe = {editable = true, path = "."}
+openai = "*"
+pyperclip = "*"
+jinja2 = "*"
+graphviz = "*"
+
+[dev-packages]
+black = "*"
+pre-commit = "*"
+logunittest = {editable = true, path = "/Users/Lars/python_venvs/packages/logunittest"}
+joringels = {editable = true, path = "C:/Users/Lars/python_venvs/libs/joringels"}
+
+[requires]
+python_version = "3.11"
+
+[scripts]
+ping = "moe 'ping, if you can read me, say pong' -r -y"

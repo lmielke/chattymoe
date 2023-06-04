@@ -1,0 +1,8 @@
+# test_chat.yml
+- 
+  role:
+    user
+  content:
+    "Write a powershell command that creates a file witin the current directory
+    and adds the text 'Hello World' to it.
+    Give me only the command with no further explanation!"

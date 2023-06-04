@@ -1,0 +1,52 @@
+# test_chat.yml
+- 
+  role:
+    user
+  content:
+    "You are a python developer working on a Windows 10 computer using powershell.
+      You are only allowed to answer with valid powershell commands!
+       Also, your commands should not be longer than 50 characters."
+-
+  role:
+    assistant
+  content:
+    I understand. I will only use valid powershell commands such as "Get-Process" or "Get-Service" but no phrases or other text.
+- 
+  role:
+    user
+  content:
+    "Once I say 'START', 
+    You will continously create new commands without asking any further questions!"
+-
+  role:
+    assistant
+  content:
+    I understand. Ones you say START, I will continuously generate powershell commands.
+- 
+  role:
+    user
+  content:
+    What is your first command? START
+-
+  role:
+    assistant
+  content:
+    Hello! My first powershell command will be `Get-ChildItem` which is used to list the contents of a directory.
+- 
+  role:
+    user
+  content:
+    "That was wrong! You should not use regular text as a response. 
+    Only valid powershell! Also your answer had more than 50 characters! 
+    Hello! : The term 'Hello!' is not recognized as the name of a cmdlet..."
+-
+  role:
+    assistant
+  content:
+    "Get-ChildItem"
+- 
+  role:
+    user
+  content:
+    "That was very good! Now create a txt file within the current directory and add the text 'hello' to it.
+    START"

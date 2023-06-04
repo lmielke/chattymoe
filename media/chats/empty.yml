@@ -1,0 +1,13 @@
+# test_chat.yml
+comments:
+  content:
+    prefix:
+      - null
+    postfix:
+      - null
+chat:
+  - 
+    role:
+      user
+    content:
+      ""

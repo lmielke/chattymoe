@@ -1,0 +1,22 @@
+digraph {
+	graph [rankdir=LR]
+	2098157368848 [label="d | data 4.0000 | grad 0" shape=record]
+	"2098157368848+" [label="+" color=blue fontcolor=blue]
+	"2098157368848+" -> 2098157368848
+	2098157310096 [label="c | data 10.0000 | grad 0" shape=record]
+	2098157310160 [label="b | data -3.0000 | grad 0" shape=record]
+	2098161942224 [label="L | data -8.0000 | grad 0" shape=record]
+	"2098161942224*" [label="*" color=blue fontcolor=blue]
+	"2098161942224*" -> 2098161942224
+	2098157369104 [label="e | data -6.0000 | grad 0" shape=record]
+	"2098157369104*" [label="*" color=blue fontcolor=blue]
+	"2098157369104*" -> 2098157369104
+	2098157239120 [label="a | data 2.0000 | grad 0" shape=record]
+	2098157369744 [label="f | data -2.0000 | grad 0" shape=record]
+	2098157369104 -> "2098157368848+"
+	2098157369744 -> "2098161942224*"
+	2098157368848 -> "2098161942224*"
+	2098157310160 -> "2098157369104*"
+	2098157239120 -> "2098157369104*"
+	2098157310096 -> "2098157368848+"
+}
