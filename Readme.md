@@ -3,7 +3,9 @@
 <img src="https://drive.google.com/uc?id=1C8LBRduuHTgN8tWDqna_eH5lvqhTUQR4" alt="me_happy" class="plain" height="150px" width="220px">
 
 ## ChattyMoe
-NOTE: This is a terrible prototype and not ready for use. It is currently in development.
+NOTE: This is a terrible prototype and not ready for use. It is currently in development
+    and currently only working with Windows powershell.
+
 Also some features such as content.text_from_audio are run as subprocess and are not
 available in this package. Reuse any code as you like.
 
@@ -21,6 +23,7 @@ git clone git@gitlab.com:larsmielke2/chattymoe.git
 ### run in Shell
 chattymoe is run using an action from chattymoe.actions.actionName
 
+Examples:
 ```
     moe info
     moe $action -a $application -v $verbose -y -r # -r for un-modified raw content
@@ -32,7 +35,8 @@ chattymoe is run using an action from chattymoe.actions.actionName
 
 ## install
 - check and or update Pipfile/requirements.txt
-- RUN: pipenv install [-d] NOTE: some dev packages are not available to you, so run without -d
+- pipenv install [-d] NOTE: some dev packages are not available to you, so run without -d
+- pipenv shell
 - add your openAi apiKey to chattymoe.settings.py or diretly to chattymoe.api_key.py -> get_api_key
 - at this point "moe info" should return some package meta data and the project structure
 - run commands from above
